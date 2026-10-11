@@ -10,6 +10,13 @@ app.use(express.json());
 
 app.use((req, res, next) => {
   console.log(`[MCP REQUEST] ${req.method} ${req.path}`);
+
+  res.on("finish", () => {
+    console.log(
+      `[MCP RESPONSE] ${req.method} ${req.path} → ${res.statusCode}`
+    );
+  });
+
   next();
 });
 
